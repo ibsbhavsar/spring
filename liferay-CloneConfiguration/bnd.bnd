@@ -1,0 +1,5 @@
+Bundle-Name: liferay-CloneConfiguration
+Bundle-SymbolicName: com.clonemodule
+Bundle-Version: 1.0.0
+Export-Package: com.clonemodule.constants
+-metatype: *
