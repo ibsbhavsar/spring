@@ -1,0 +1,202 @@
+{"properties": [
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "database.driver",
+    "type": "java.lang.String",
+    "description": "A description for 'database.driver'"
+  },
+  {
+    "name": "database.url",
+    "type": "java.lang.String",
+    "description": "A description for 'database.url'"
+  },
+  {
+    "name": "database.user",
+    "type": "java.lang.String",
+    "description": "A description for 'database.user'"
+  },
+  {
+    "name": "database.password",
+    "type": "java.lang.String",
+    "description": "A description for 'database.password'"
+  },
+  {
+    "name": "hibernate.dialect",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.dialect'"
+  },
+  {
+    "name": "hibernate.show_sql",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.show_sql'"
+  },
+  {
+    "name": "hibernate.hbm2ddl.auto",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.hbm2ddl.auto'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "db.password",
+    "type": "java.lang.String",
+    "description": "A description for 'db.password'"
+  },
+  {
+    "name": "db.user",
+    "type": "java.lang.String",
+    "description": "A description for 'db.user'"
+  },
+  {
+    "name": "db.url",
+    "type": "java.lang.String",
+    "description": "A description for 'db.url'"
+  },
+  {
+    "name": "db.driver",
+    "type": "java.lang.String",
+    "description": "A description for 'db.driver'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "entitymanager.packagesToScan",
+    "type": "java.lang.String",
+    "description": "A description for 'entitymanager.packagesToScan'"
+  },
+  {
+    "name": "hibernate.format_sql",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.format_sql'"
+  },
+  {
+    "name": "db.username",
+    "type": "java.lang.String",
+    "description": "A description for 'db.username'"
+  }
+]}
