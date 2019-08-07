@@ -1,0 +1,70 @@
+	Git :-
+
+1. git init 
+a one time command to start who
+.git hidden subfolder will be created.
+
+2. Working area,Staging area,Repository
+
+Working area : where we write our code, update,delete and etc.
+Staging area : where files are ready for commit.
+Repository : where all the changes are saved as a commit.(different versions creates)
+
+3. git status 
+where we can check how many files are there to be committed.
+here we will see all uncommited files.
+
+4. git add filename
+using this command we can commit that file and that file will be add to staging area from working area.
+now if we check git status we can see that that fill will be in green color.
+
+5. git diff filename
+If have made changes in our committed file at that time using this command we can see how many difference are there in new file and committed file.
+changes are marked with + symbol.
+Whenever you make any changes dont forget to add it again in staging area.
+
+6.git commit -m ""
+This command will store permananent changes of our file inside the repository.
+
+7. git log
+using this command we can change how many commits are created.
+
+8. git clone "Copy from  Github" 
+This command is used to choose an exisiting repository.
+
+9.For the first time :- 
+git remote add origin https://github.com/ibsbhavsar/BhavinBhavsar.git
+
+10. git push origin master
+
+11. git config --global user.name
+
+12. git remote show origin 
+to check repository connected or not.
+.>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+*******************************************-------------------------------------*************************************
+
+Proper way of Add any file from your local to Remote Repository
+
+1) Make a folde in your local and Clone a repository in which you want to upload a file.
+git clone (your repository URL)
+
+2) Now in that folder move your files so that you can add those files to the remote repository.
+
+3) Now by default clone repository comes with the master branch so change the branch if you want.
+git checkout (Your branchname)
+
+4) Now add the file in the branch.
+git add (Your file Name)
+(NOTE : File Name Must Be Same As File Name)
+
+5) It's time to commit that added file.
+git commit -m "Give some relatable message"
+
+6) That's it. You've done a great job !
+
+7) The final step is to push your file to the remote repository.
+git push origin (your branch name) :- using this command branch's files will be added to the Remote Repository.

@@ -1,0 +1,142 @@
+Somethings good to know in Liferay.
+
+1) What is Portal?
+Portal is platform to create web applications where portal provides commonly used features such as user  management,
+ authentication, sites, web content management to avoid creating from scratch.
+Portal assembles multiple portlet applications to form a page.
+
+2) What is Portlet ?
+Portlet is single application fragment on a web page as web application and is used with portlets on the same page.
+There are two JSR standards for portlet behaviour.
+
+: JSR 168 (Portlet 1.0 specification):
+ Focuses on displaying multiple applications on the same page.
+ It introduces the basic portlet programming model to support the MVC pattern , portlet modes, window states
+: JSR 286 (Portlet 2.0 specification):
+ Developed to improve the shortcomings of JSR-168
+Supports Inter-Portlet Communication
+serving AJAX data
+
+3)Which class LiferayMVCPortlet extends ?
+GenericPortlet
+
+4) What is Portlet Namespace ?
+-> Portlet namespace is PortletId.
+-> p_p_id also contains portlet namespace.
+-> In jsp we can get portlet namespace :-
+<%  String nameSpace=  renderResponse.getNamespace() %>
+<portlet-namespace/>
+
+5) In Portlet what is p_p_lifecycle ?
+-> it holds integer values and represents the portlet lifecycle phase :
+0- it means portlet is in render phase.
+1- it means portler is in action phase.
+2- it means portlet is in resource phase.
+
+6) What is p_p_state?
+It is window state of portlet.
+and that will be one of Normal, maximized and minimized :
+ Java supported portlets have following three states.
+ 1) Maximized : it means portlet occupies an entire page.
+ 2) Minimized : it means only title bar is displated when user clicks
+ 3) Remove : when the portle will remove from the page.
+ 
+7) What is portlet lifecycle :
+There are four stages of portlet lifecycle.
+-> init : this method is called during the portlet deployment. And it reads all the init parametes which are stored in 
+portlet.xml file.
+Init method :
+void init (PortletConfig config) throws PortletException
+- Portlet can only read the configuration data.
+- In that data there is portlet name, its initialize parameters, the portlet resource bundle and the portlet application context.
+
+-> render : in this stage portlet generates content and rendered on the web page.
+In the below cases render phase is called :
+-> When the portlet is rendered on the web page.
+-> After completing the action phase.
+-> After completing the event processing phase.
+ Render method example :
+ <portlet:renderURL var=“loadEmployees”>
+ <portlet:param name=”mvcPath” value=”/WEB-INF/view/empList.jsp” /> 
+ </portlet:renderURL>
+ <a href=”<%=loadEmployees%>”>Click here</a>
+ 
+ :  the mvcPath URL parameter indicates a page within your portlet.
+ To navigate to another page in your portlet, use a portal URL with the parameter mvcPath to link to the specific page.
+ 
+-> action : This phase will call when user edit, create or delete the data.
+- Events can be called when portlets want to communicate with each other.
+
+-> Destroy : This phase will call when portlet is undeployed from the portlet container.
+
+8)@Component properties in MVC Portlet :-
+- portlet-name : it contains the portlet name. Each portlet name is unique withing the application.
+- display-name : it is used to identify the portlet after deploying in the portal.So at drag time we can easily identify.
+- portlet-class : it is fully qualified class name .
+- init-param : It contains name/value pair as an initialization parameter of portlet.
+- expiration-cache : It contains the time of the portlet output expiration in seconds. If that time is -1 it means that portlet output 
+will never expire.
+- security-role-ref : It contains the declaration of a security role of an user. It means only that type of roled user will be able to 
+access that portlet.
+
+9) Portle-Preferences :
+-> It is one type of property which contains the basic configuration data of portlet related.
+-> Often Administrations use this to provide a customized view of a portlet to user based on some preferences.
+-> They sometimes give some access control to users themselves.
+
+10) Liferay Friendly URL :-
+-> Liferay generates lengthy URLS for the action, render and resource requests which are sometimes looks bad and not readable
+and add some unnecessary parameters which are not required : 
+Those not required parametes are as below :
+p_p_id
+p_p_col_id : page column identify
+p_p_col_count
+p_p_lifecycle –  0 -> render, 1->action, 2->resource
+p_p_state – window state
+p_p_mode – edit, view, help,print, preview,config,edit guest, edit defaults
+
+11) How to track live users in liferay.
+-> To save sessions in liferay database then add below property file into the portal-ext.properties
+session.tracker.memory.enabled=true
+-> To enable Live users monitoring : live.users.enabled=true
+-> Using this it will decrease the portal perfomance.
+
+12) Things to know in OSGI :
+-> What is OSGI :-
+- It is open service gateway initiative and a modular architechture distributed system.
+
+Three important topics which we need to cover in OSGI :-
+1) OSGI BUNDLES
+2) OSGI COMPONENTS
+3) OSGI SERVICES
+
+:- OSGI BUNDLES 
+-> it is one type of service/component which is made as a jar file.
+-> Bundle is a jar file packaging which contains classes and resources.
+-> OSGI bundles contain meta data which can be found in META-INF/MANIFEST.MF
+-> Each bundle should have this file.
+-> One bundle can't be communicate directly with another bundle.
+-> Each OSGI bundles have below six stages :
+- Uninstalled : bundle is uninstalled and may not be used in the osgi container
+- installed : bundle is in installed stage but not resolved.
+- resolved : bundle is resolved and able to started , it is not only active , deploy and start it or use "start (bundleid)"
+- starting : bundle is in the process of starting.
+- stopping : bundle is in the process of stopping.
+- active : bundle is in the active stage and running and activated.
+
+13) What do you call component ?
+-> Portlets which are created in liferay module project are generally called as a component.
+-> It is a type of object which contains the core functionality.
+-> It is managed by the component framework or container.
+-> They are deployed inside the modules , and they are created, started, stopped and destroyed as needed by the container.
+
+14) LDAP Integration with Liferay:-
+-> Follow the below link for the complete reference.
+http://www.javasavvy.com/liferay-ldap-integration/
+https://www.enprowess.com/blogs/ldap-user-import-groups-liferay-7-dxp/
+
+-> LDAP Lightweight directory access protocol.
+-> Basicaly this integration is used to import or export users to each other.
+-> Once we setup all the things all we need to do is create user from any of both either LDAP or Liferay.
+-> Thenafter the successfull integration we can use all the users both side.
+-> Even in the database we can store those users.

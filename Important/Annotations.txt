@@ -1,0 +1,249 @@
+************************************
+
+Most used annoatation in spring Framework 
+
+************************************
+
+
+1) @Autowired 
+Use :- Constructor, Field, Method
+Desc:- Declares a constructor, field, setter method, or configuration method to be autowired by type,
+->Items annotated with this annotation can't be public it must be private.
+
+->This annotations injects object dependency implicitly.
+
+-> When this is used on fields and pass the values for the fields using the property name at that time,
+Spring will automatically assign the fields with the passed values.
+
+-> When you use @Autowired on  methods, Spring tries to perform the by Type autowiring on the method.
+ You are instructing Spring that it should initiate this property using setter method where you can add your custom code,
+ like initializing any other property with this property.
+ 
+->Consider a scenario where you need instance of class A, but you do not store A in the field of the class.
+ You just use A to obtain instance of B, and you are storing B in this field.
+ In this case setter method autowiring will better suite you. You will not have class level unused fields.
+ 
+->When we use this annotation on the constructor, constructor injection happens at the time of object creation.
+It indicates that the constructor to autowire when it is used as a bean.
+
+-> "One thing is to remember that only one constructor can carry the @Autowired annotation."
+
+2) @Qualifier
+Use :- Field, Parameter, Type, Annotation type.
+Desc :- Guides autowiring to be performed by means other than by type.
+This annotation is used along with @Autowired annotation.
+When we need more control of dependency injection process, this is used.
+
+->When multiple beans of same type are created at that time this annotation is used to wire that bean with the property and to
+avoid the confusion.
+
+-> Consider an example when an Interface BeanInterface is implemented by two beans Bean1 and Bean2
+Now at that time sprign will not know which one of the two implemented bean to inject.
+
+Example :-
+@Component															
+public class BeanB1 implements BeanInterface {
+  //
+}
+@Component
+public class BeanB2 implements BeanInterface {
+  //
+}
+ ******************************* So from the below solution that problem can be solved. **********************
+@Component
+public class BeanA {
+  @Autowired
+  @Qualifier("beanB2")
+  private BeanInterface dependency;
+  ...
+}
+
+3) @Configuration 
+
+-> This annotation is used on classes which define beans.
+-> @Configuration is an analog for xml configuration file.
+-> Java class which annotated with this annotation is configuration by itself.
+
+Example :
+
+@Configuration
+public class DataConfig{ 
+  @Bean
+  public DataSource source(){
+    DataSource source = new OracleDataSource();
+    source.setURL();
+    source.setUser();
+    return source;
+  }
+  @Bean
+  public PlatformTransactionManager manager(){
+    PlatformTransactionManager manager = new BasicDataSourceTransactionManager();
+    manager.setDataSource(source());
+    return manager;
+  }
+}
+
+4) @ComponentScan 
+
+-> This one is used with @Configuration annotation which allow spring to know the packages 
+scan for annotated components.
+-> This one is also used to specify the basePackageClasses or basePackage.
+-> Scanning will occur from the package of the class that declares this annotation.
+
+5) @Bean
+
+-> It is used at method level.
+-> This annotation is used with @Configuration annotation.
+-> @Bean annotation works with @Configuration to create Spring beans.
+
+Example :-
+
+@Configuration
+public class AppConfig{
+  @Bean
+  public Person person(){
+    return new Person(address());
+  }
+  @Bean
+  public Address address(){
+    return new Address();
+  }
+}
+
+->@Configuration will have methods to instantiate and configure dependencies.
+ Such methods will be annotated with @Bean.
+ The method annotated with this annotation works as bean ID and it creates and returns the actual bean.
+ 
+6) @Lazy
+
+-> This annotation is used on Component classes.
+-> By default all autowired dependencies are created and configured at startup.
+-> But whenever if we need to initialize a bean lazily at that time we can use this annotation over the class.
+-> This means that the bean will be created and initialized only when it is first requested for.
+-> You can also use this annotation on @Configuration classes. 
+This indicates that all @Bean methods within that @Configuration should be lazily initialized.
+
+7) @Component
+
+-> It is used on classes to indicates the class is a spring component.
+-> Any class annotated with this annotation is called a bean or component so that the component scannning mechanism 
+can added into the applicationContext.
+
+8) @Controller
+
+-> It is used to indicate the class as a sprign controller.
+-> This one is used to indentify controllers for spring mvc and Spring webFlux.
+-> It allows autodetection of component classes in the classpath and auto registering the beans for them.
+-> The java class annotated with this annotation is capable to handle multiple request mappings.
+
+
+9) @Service
+
+-> This annoatation used on a class.
+-> It marks a java class that perfor some services, such as execute some business logic, perform calculation and call
+any external apis.
+-> This annoatation is a specialized form of the @Component to be used in the service layer.
+
+10) @Repository
+
+->  This annotation used on the java classes which have direct access to the database.
+-> This annoation works as marker for any class that fulfills the role of repository or Data Access Object.
+-> Important thing to know about this annotation is that ,
+this annotation has automcatic translation feature which means whenever any exception occur in the class which is annotated with
+the @Repository annoatation , there is a handler for that exception so no need to add any try catch.
+
+************************************
+
+Most used annotation in Spring Boot
+
+************************************
+
+1) @EnableAutoConfiguration 
+
+-> It is mainly used on the main application class.
+-> The @EnableAutoConfiguration annotation implicitly defines a base “search package”.
+-> It tells spring boot to add the beans based on the classpath setting, other beans and property settings.
+
+2) @SpringBootApplication
+
+-> This annoatation is used on the application class while settin up the starter project.
+-> The class which is annotated with this annoatation is must be kept in base package.
+-> This annotation will do the component scan but it will only scan the sub-packages.
+-> As an example, if you put the class annotated with @SpringBootApplication in "com.example"
+ then @SpringBootApplication will scan all its sub-packages, such as "com.example.a", "com.example.b", and "com.example.a.x."
+-> This annoatation is convenient annotation that adds all the following.
+
+1) @ComponentScan
+2) @Configuration
+3) @EnableAutoConfiguration
+
+************************************
+
+Spring MVC and REST Annotations
+
+************************************
+
+1) @RequestMapping
+
+-> It is one of the most used annotation in spring web application.
+-> It can applied on classes or methods.
+->  The @RequestMapping annotation is used to map web requests onto specific handler classes and handler methods.
+-> When it is used on the class level then it will become base URI which controller will use.
+-> When it is used on the method level then it will give us the URI which we can directly used.
+-> So from this we can infer that class level URI will remain the same while method level URI can be changed as per the requirements.
+
+Example:-
+
+@Controller
+@RequestMapping("/welcome")
+public class WelcomeController{
+  @RequestMapping(value="/hi" ,method = RequestMethod.GET)
+  public String welcomeAll(){
+    return "welcome all";
+  }  
+}
+
+2) @RequestMapping with multiple URIS 
+
+Example :
+
+-> @RestController
+@RequestMapping("/home")
+public class IndexController {
+@RequestMapping(value={"/", "/page", "page*","view/*,**/msg"})
+  String indexMultipleMapping(){
+    return "Hello from index multiple mapping.";
+  }
+}
+
+3) @RequestMapping with @RequestParam
+
+->The @RequestParam annotation is used with @RequestMapping to bind a web request parameter
+ to the parameter of the handler method.
+-> It can be used with or without value.
+->  The value specifies the request param that needs to be mapped to the handler method parameter,
+ as shown in this code snippet.
+ 
+4) @ExceptionHandler
+
+-> It is used at the method level to handle the exception at the controller level.
+-> It is used to define the class of exception it will catch.
+-> The @ExceptionHandler values can be set to an array of Exception types.
+
+5) @PathVariable
+
+-> This annotation is used at method arguments.
+-> The @RequestMapping annotation can be used to handle dynamic changes in the URI where certain URI value acts as a parameter.
+
+Example :-
+-> @RestController
+@RequestMapping("/home")
+public class IndexController {
+@RequestMapping(value={"/", "/page/{id}", "page*","view/*,**/msg"})
+  String indexMultipleMapping(@PathVariable int id){
+    return "Hello from index multiple mapping.";
+  }
+}
+
+-> In above example you can see that at method level annotation we have declared /page/{id}, and
+in the method arguments we have declared that annotation and give that id there.

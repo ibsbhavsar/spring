@@ -1,0 +1,107 @@
+:: Spring Core Annotations List :-
+
+1) @Required:
+-> It is applied on bean setter methods.
+-> It enforce that @Required annotation must be populated at the configuration time with required property.
+-> Otherwise it will throw BeanInitializationException.
+
+2) @Autowired
+-> It can be applied on fields,setter method and even on constructors.
+-> It injects object dependency implicitly.
+-> When you use @Autowired on fields and pass the values for the fields using the property name,
+   Spring will automatically assign the fields with the passed values.
+-> By applying this annotation on setter method , we are instructing spring that it should initiate this property where
+   we can add our custom code.
+   
+3) @Configuration
+-> It is applied on classes which define beans.
+-> @Configuration can be used to define Spring Beans.
+-> Any class which annotated with this annotation is a configuration by itself.
+-> You can use @SpringBootConfiguration alternatively. This annotation comes in spring boot 2 version.
+
+4) @ComponentScan
+-> It is used to inform to spring that which package need to scan for the annotated components.
+-> It is also used to specify basePackage using basePackage attribute to scan.
+
+5) @Bean
+-> It works with the @Configuration annotation.
+-> This is used at the method level.
+-> The method annotated with this annotation worked as bean Id and it creates and returns the actual bean.
+
+********************************************************************************************************************************
+:: Spring Framework Stereotype annotation 
+
+6)@Component
+-> It means that spring will automatically detect this class as dependency injection.
+-> This annotation is used to denote the class as component.
+
+7) @Value
+-> It is used with fields and constuctors parameters.
+-> It initalizes the default values.
+
+8) @Controller
+-> This indicates that this class is a spring controller.
+
+9) @Service
+-> It is used at method level.
+-> It marks that java class performs some services and it executes some business logic.
+
+10) @Repository
+-> It indicates that this class has direct access with database.
+
+********************************************************************************************************************************
+:: Springboot Annotations
+
+11) @EnableAutoConfiguration
+-> This annotation is usually placed on the main application class.
+-> This annotation tells Spring Boot to start adding beans based on 
+classpath settings, other beans, and various property settings.
+-> It scans the classpaths and ,find the libraries in the classpath and then attempts to guess the best
+configuration for them.
+
+12) @SpringBootApplication
+-> It is used on the application class when creating spring starter project.
+-> Any class which is annotated with this annotation  must be keep with base package.
+-> It does componentscans.
+-> It will scan all the classes which are stored in sub-packages.
+-> It includes following annotation
+1)@EnableAutoConfiguration
+2)ComponentScan
+3)@Configuration
+
+********************************************************************************************************************************
+:: Spring MVC and REST annotation
+
+13) @Controller
+-> It is used on those classes which play the role of controller in your application.
+-> It autodetects the component classes.
+-> This can be used with spring MVC and webFlux.
+
+14) @RequestMapping
+-> It can be used with the class level and method level to mapping the web requests onto specific handler classes.
+-> When it is used on method level at that time using that URI , specific method will be executes.
+-> When it is used on class level at that time using that URI, that controller will be executes.
+
+15) @GetMapping
+This annotation is used for mapping HTTP GET requests onto specific handler methods.
+ @GetMapping is a composed annotation that acts as a shortcut for @RequestMapping(method = RequestMethod.GET)
+
+16) @PostMapping
+This annotation is used for mapping HTTP POST requests onto specific handler methods.
+ @PostMapping is a composed annotation that acts as a shortcut for @RequestMapping(method = RequestMethod.POST)
+
+17) @PathVariable
+-> It is used to return whatever has written after the proper URL.
+suppose 
+localhost:8080/hello-path/this is path variable.
+here /hello-path is my mapping url.
+how to declare it 
+@GetMapping(path="/hello-path/{name}")
+public String helloWorld(@PathVariable String name) {
+		return (String.format("Hello path variable,%s", name));
+	}
+	this is how we can declare path variable.
+
+18) @RequestParam
+-> It is used to retrieve the value from the form inputs.
+-> It is as same as request.getAttribute.

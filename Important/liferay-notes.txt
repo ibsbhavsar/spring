@@ -1,0 +1,355 @@
+
+***********************************************************************************************************************
+1.Difference between <actionURL>,<renderURL> and <resourceURL>
+
+=>action URL is used for form saving on the server side and you can send parameter to the server side .
+=>render URL is used for communication between two jsp pages and you can send parameter also in the render url,
+=>resourse URL is basically used for ajax call , upload image , display image , json etc.
+=>portlet action phase will be called just once while render phase will be called every time the page is refreshed.
+
+***********************************************************************************************************************
+2.Render URL creation:
+***********************************************************************************************************************
+                                                           Language Hook
+		http://www.javasavvy.com/liferay-7-language-properties-hook/
+	s1.create module project and select activator template
+	s2.follow above link..
+	note : Language hook class  extends ResourceBundle class 
+	Lnaguage properties path:E:\Liferay\liferay-dxp-digital-enterprise-src-7.0-sp7\portal-impl\src\content
+	to change language-property.
+liferay-dxp-hooks reference
+http://www.javasavvy.com/liferay-dxp-hooks/
+https://proliferay.com/concept-liferay-hook/
+***************************************************************************************************************************************
+															StrutsAction Hook
+Note : StrutsAction hook is used for hit particular url 
+
+StrutsAction class extends BaseStrutsAction
+
+In case you want to override different action then mentioned in this example, You can see ‘struts-config.xml’ file to 
+know all out-of-the-box struts actions. You can find this file on following path in your IDE.
+
+tomcat server → liferay-ce-portal-7.0-ga3 → tomcat-8.0.32 → webapps → ROOT → WEB-INF → struts-config.xml.
+	
+
+															
+***************************************************************************************************************************************
+														Service wrapper-hook
+=>Reference:
+		http://www.javasavvy.com/liferay-dxp-servicewrapper-hook/
+		https://www.surekhatech.com/blog/liferay-7-dxp-service-wrapper-hook
+		
+	=>Service wrapper hook class extends xxxLocalServiceWrapper 	
+	s1.create module project and select service-wrapper template
+	s2.follow above link..
+		note: modify any Liferay functionality easily without worrying about modification of core portlet classes.
+			  We can achieve portal service customization with the help of Service Wrapper hook.
+		=>different type of service-wrapper :
+			1) BlogsEntityLocalServiceWrapper
+			2) UserLocalServiceWrapper
+			
+***************************************************************************************************************************************
+
+														Jsp Hook fragement
+ s1.first create module= liferay module project fragement
+ s2.write project name 
+ s3. next
+ s4.write following code in gogo shell
+ s5.In host OSGI Bundle :paste to :com.liferay.message.boards.web
+ s6.In oveerriden file path click on + symbole and select jsp file
+ s7.finish
+ write following code in gogo shell
+ 1. lb | grep Message 
+ 2. headers 168                //bundle id=168  // 325|Active     |   10|Liferay Login Web (2.0.4)
+ 3. copy :Bundle-SymbolicName = com.liferay.message.boards.web
+ 
+ 											Journal article	
+			Journal article use for change dynamic data in jsp hook.
+		s1. create web content to for change dynamic data
+		s2. create jsp hook fragement 
+		s3. add dependency in build.gradle
+				dependencies {
+							   compile group: "com.liferay", name:"com.liferay.journal.api", version:"2.1.0"
+							   compileOnly group: 'com.liferay', name: 'com.liferay.journal.service', version: '2.0.2'
+							   compile group: 'com.liferay', name: 'com.liferay.journal.taglib', version: '2.0.0'
+							 } 
+		s4. in jsp file add content
+			<%JournalArticle journalArticle=JournalArticleLocalServiceUtil.getArticleByUrlTitle(32975, "blog-hook");%>
+			<%=journalArticle.getContent() %>
+		s5. group id (32975) take from created webcontent from database and give webcontent name	
+***************************************************************************************************************************************
+													   	Model-Listener
+	http://www.javasavvy.com/liferay-dxp-modal-listener-hook/
+The Model Listener sample demonstrates adding a custom model listener to a Liferay Portal out-of-the-box entity. 
+When deploying this sample with no customizations, a custom model listener is added to the portal’s layouts, listening for onBeforeCreate events.
+This means that any page creation will trigger this listener, which will execute before the new page is created.
+
+note: model listener is used to event on after update,create and before update to log inside the console.
+	=>Model-Listener class extends BaseModelListener	
+s1.create module project and select activator template
+   for reference :user-model-listener module in eclipse
+***************************************************************************************************************************************
+api=include interface 
+service=implement class
+***************************************************************************************************************************************
+
+1.finder
+
+  1. https://proliferay.com/liferay-service-builder-finder-query/
+  2. http://www.liferaysavvy.com/2014/06/liferay-service-builder-finder-methods.html
+
+  s1.Define finder tag and finder columns in Entity Tag in service-builder
+  s2.build service
+  s3.method created in xxxpersistenceImpl
+  s4.Implement Custom method in XXXLocalServiceImpl class
+			public List<Book> bookNameDetails(String bname){
+		  return this.bookPersistence.findBybookname(bname);
+		}
+  s5.build service
+  s6.deploy service-builder
+  <finder return-type="Collection" name="Name" where="employeeGenser!=1">
+     	<finder-column name="name" comparator="Like"></finder-column>
+     </finder>
+where="employeeGenser!=1"
+comparator="Like"
+arrayable-operator="OR"
+***************************************************************************************************************************************
+2.DynamicQuery:use for multiple query
+		http://liferayiseasy.blogspot.com/2016/02/dynamic-query-in-liferay.html
+Note:- 
+
+1)Dynamic Queries is used only to Retrieve Data.
+2)If you know Hibernate it is similar to Criteria API.
+3)No need to build services again and again
+4)you can perorm IN,AND,OR,LIKE etc operation esaily.
+
+below step follow
+
+s1.create query in render or doview method following:
+	syntax :DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(Entity_Name.class, Alias,PortalClassLoaderUtil.getClassLoader())
+        Ex:-
+           DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(User.class, "user",PortalClassLoaderUtil.getClassLoader());
+        example:
+		DynamicQuery dynamicQuery=DynamicQueryFactoryUtil.forClass(Customer.class,"cu",PortalClassLoaderUtil.getClassLoader());
+		dynamicQuery.add(RestrictionsFactoryUtil.eq("cu.gender", "female")); //select * from customer where gender="female"
+		List<Customer> culist=customers.dynamicQuery(dynamicQuery);
+		_log.info("DyanamicQuery example :...................................");
+		for(Customer c:culist)
+		{
+			_log.info("first name:"+c.getFname());
+		}
+3.Projection in Dynamic Query
+		http://liferayiseasy.blogspot.com/2016/02/projection-in-dynamic-query.html
+		 We know how to fetch a complete object but what if we want only one column like only userId of User for this we use Projections.
+		
+3.custom-sql:use for join query
+EmployeeFinderImpl extends BasePersistenceImpl<Employee> implements EmployeeFinder
+
+***************************************************************************************************************************************
+Theme
+https://dev.liferay.com/pt/develop/tutorials/-/knowledge_base/7-0/themes-generator#installing-the-theme-generator
+http://www.javasavvy.com/liferay-dxp-theme-generator-tutorial/
+s1.install node.js
+s2.in cmd 
+***************************************************************************************************************************************
+											service-wrapper
+											
+s1.create module project and select servicewrapper template and click next
+s2.select service Name write *.userlo and search to select service-wrapper jar
+s3.finish
+		https://www.surekhatech.com/blog/liferay-7-dxp-service-wrapper-hook
+ For example, BlogsEntityLocalServiceWrapper class is created for BlogsEntityService which contains methods to add, update, delete Blogs entry.
+ If we want to modify any of these services then we need to create custom class that extends BlogsEntityLocalServiceWrapper via Service Wrapper hook.
+ Once we deploy such hook, Liferay portal container will use custom service class instead of original service wrapper class.
+
+
+***************************************************************************************************************************************
+												post Login & pre Login
+s1.create module project and select tempalte name Activator
+s2.build.gradle to add below dependency:
+		1.compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations"
+	    2.compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel",version:"2.6.0"
+	    3.compileOnly group: "javax.servlet", name: "javax.servlet-api", version:"3.0.1"
+s3.to add pre events for pre-login and add post event for post-login 
+   @component(
+		property={"key=login.events.pre"},  //Called before get Login
+		service=LifecycleAction.class
+      )
+s4. In class to implements LifecycleAction	  
+ key=login.events.post  // Called after get Login
+*************************************************************************************************************************************** 
+															Expando
+
+1.https://community.liferay.com/blogs/-/blogs/working-with-expando-api-in-liferay
+2.https://proliferay.com/liferay-expando-api/
+3.https://rupalchatterjee.wordpress.com/2016/07/02/custom-or-expando-fields-in-liferay-7/
+*************************************************************************************************************************************** 
+														auth-pipeline / Filter
+  =>What Is Portlet Filter?
+		Portlet Filter is used to intercept and manipulate the request and response before it is delivered to the portlet at given life 
+		cycle such as action, render and resource	
+	USE :when http request call before perform any action then used filter
+  =>Types Of Filters For A Liferay Portlet
+		Action Filter : To Intercept only The Action Requests
+		Render Filter : To Intercept only The Render Requests
+		Resource Filter : To Intercept only The Resource Requests
+		Base Filter : To Intercept all the http request comes to your portlet
+	authentication use for pre and post in login 
+  =>auth-pipeline
+		By using Authentication Pipeline we can write our own custom authentication logic. We can conditionally validate 
+		user based on some condition.
+			@Component(
+				immediate = true,
+				property = {
+					"key=auth.pipeline.pre"
+				},
+				service = Authenticator.class
+			)
+	=>Authentication class implement Authenticator interface	
+	
+	=>Liferay user can be authenticated three ways. First is by emailAddress, second is by screenName and third one is by userId.
+		So based on our portal settings only single method will be called . 	
+	
+	=>SUCCESS : If authentication is successful, return SUCCESS
+
+	  FAILURE: If the user exists but the  passwords do not match, return FAILURE
+
+	  DNE: If the user does not exist on  the system, return DNE.
+	https://proliferay.com/liferay-custom-authentication-hook/
+base-filter
+		https://www.liferaystack.com/2017/09/portlet-filters-in-liferay-7-dxp.html
+		use for render,action and  for after and before filter
+		->url-pattern
+	create module project to select service template
+Note:
+	This BaseFilter Will be Triggered Before all the other filters such as ActionFilter, RenderFilter and ResourceFilter.
+	
+****************************************************************************************************************************
+											external-database-servicebuilder-integration using jdbc
+s1. first create new database and create table
+s2. create service-builder and service.xml to create table ,and create mvcportlet module-project 
+	 <entity local-service="true" name="Test" table="test" data-source="extDataSource" remote-service="false" uuid="false">
+	 <column name="id" db-name="id" type="int" primary="true"></column>
+	<column name="name" db-name="name" type="String"></column>
+s3. create ext-spring.xml file in META-INF/spring folder and you can configure data base connection details in the following  approaches:	
+	
+	<?xml version="1.0"?>
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+<bean class="com.liferay.portal.dao.jdbc.spring.DataSourceFactoryBean" id="dataSourceBean">
+		<property name="propertyPrefix" value="jdbc." />
+		<property name="properties">
+			<props>
+				<prop key="jdbc.driverClassName">org.postgresql.Driver</prop>
+				<prop key="jdbc.url">jdbc:postgresql://localhost:5432/external_db</prop>
+				<prop key="jdbc.username">postgres</prop>
+				<prop key="jdbc.password">aman</prop>
+			</props>
+		</property>
+	</bean>
+	<bean class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy" id="liferayDataSource">
+		<property name="targetDataSource" ref="dataSourceBean" />
+	</bean>
+	<alias alias="extDataSource" name="liferayDataSource" />
+</beans>	
+s4.build service-builder and deploy	
+s5.in mvc portlet create data and deploy..and check 
+
+=*>reference link
+	1. http://www.javasavvy.com/liferay-7-external-database-servicebuilder-integration/
+	2.Example : Liferay_dxp_project inside external-database-service and external_db module
+
+****************************************************************************************************************************
+											external-database-servicebuilder-integration using JNDI	
+											
+	1. Configure JNDI Resource entry in server.xml like below in tomcat/	
+		after changes in server.xml file to require restart tomacat-server.
+		
+		http://www.javasavvy.com/liferay-7-external-database-using-jndi/
+****************************************************************************************************************************	
+													Friendly-URL
+note :	friendly-Url method only use for actionUrl  not render url-
+	add below line in action method in portlet
+		1. ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
+		2.response.sendRedirect(themeDisplay.getLayout().getFriendlyURL());
+
+****************************************************************************************************************************	
+													ServeResource USing Ajax
+													
+	https://proliferay.com/alloy-ajax-liferay-portlet/											
+****************************************************************************************************************************	
+													Configurable Portlet In Liferay 7 / Liferay DXP
+	program example in workspace :configurable-custom-module												
+     reference link:
+		1.https://dev.liferay.com/en/develop/tutorials/-/knowledge_base/7-0/making-your-applications-configurable
+		2.https://proliferay.com/configurable-portlet-liferay-7-liferay-dxp/
+		
+		
+		liferay Url used for ipc portlet
+		portlet url not used access same portl
+****************************************************************************************************************************		
+note : if you get any user data of portal to use follwing method
+			1.String email = PortalUtil.getUser(lifecycleEvent.getRequest()).getEmailAddress();
+			2.ThemeDisplay themeDisplay=request.getAttribute(WebKeys.THEME_DISPLAY);
+			3.ServiceContext context=ServiceContextFactory.getInstance(lifecycleEvent.getRequest());
+			4.HttpServletRequest servletRequest=lifecycleEvent.getRequest();
+****************************************************************************************************************************							
+												create custom rest-api
+	
+	1.create service builder (json-web-service)
+	2.after create module project select rest template . and add service-builder dependency in rest module.	(rest-api)
+		http://localhost:8080/o/rest-api/greetings/getalluser
+		
+****************************************************************************************************************************									
+												custom form user submit then httliferay user create
+	ps://community.liferay.com/fr/forums/-/message_boards/message/14332034
+	https://community.liferay.com/fr/forums/-/message_boards/message/23712724
+	
+	User roles
+		http://www.liferaysavvy.com/2014/10/working-with-liferay-user-roles.html
+		https://www.javatips.net/api/liferay-portal-master/portal-test/src/com/liferay/portlet/messageboards/util/test/MBTestUtil.java
+			BlogsEntry entry = BlogsEntryLocalServiceUtil.getEntry(userId);
+			
+****************************************************************************************************************************		
+											After login redirect specific user site
+	
+	http://jwang4629.blogspot.com/2017/08/liferay-custom-landing-page.html
+	-> to use post login 
+	
+****************************************************************************************************************************	
+									add the form value in language-property
+	* add the content in language-property
+			button-value=click me
+			label-name=Enter Zip code
+	*in jsp page to add this key		
+	<label><liferay-ui:message key="label-name"/></label>
+ 	<button name="button" type="button"><liferay-ui:message key="button-value"/></button>
+				
+****************************************************************************************************************************
+												OSGI annotations
+	https://community.liferay.com/fr/blogs/-/blogs/liferay-osgi-annotations-what-they-are-and-when-to-use-them											
+****************************************************************************************************************************
+Thing to delete before server restart 
+- \tomcat-8.0.32\temp\
+- \tomcat-8.0.32\work\
+- \osgi\state\
+
+Only delete folder DatA NOT folder
+
+****************************************************************************************************************************
+											How to applied Fix packed in liferay 7.1 
+s1. copy patching-tool to paste in liferay-dxp-7.1.10-ga1 
+s2. then copy liferay-fix-pack-dxp-8-7110 to paste in patching-tool ->patches
+s3. in patching-tool folder to open cmd to write following command
+		patching-tool install
+****************************************************************************************************************************8
+										Session create in between multiple portlet
+										
+1.HttpServletRequest servletReq = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(actionRequest));
+    	 
+2.HttpSession httpSession=servletReq.getSession();		
