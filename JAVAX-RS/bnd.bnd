@@ -1,0 +1,4 @@
+Bundle-Name: JAVAX-RS
+Bundle-SymbolicName: com.javaxrs
+Bundle-Version: 1.0.0
+Liferay-Configuration-Path: /configuration
