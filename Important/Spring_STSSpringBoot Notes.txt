@@ -1,0 +1,272 @@
+(1) Spring Boot Anotations :-
+
+@EnableAutoConfiguration:-
+-> To configure the application based dependencies :-
+-> Automatically it will configure dependencies application based.
+
+@SpringBootApplication
+-> This is used at class Level.
+-> It is the class contains all the application and main method.
+-> If we use this annotation we dont need to add any other annotation.
+
+@ComponentScan
+-> This annotation scans all the beans and packages which are inclued in the project when application initialized.
+
+@Configuration
+-> indicates that the class can be used by the Spring IoC container as a source of bean definitions.
+->Indicates that a class declares one or more @Bean methods and may be processed by the Spring container
+ to generate bean definitions and service requests for those beans at runtime.
+
+@Autowired 
+-> Basically this is used to create an object of the pojo class and access its getter setter method.
+
+@EnableWebSecurity
+-> enables spring security configuration which is defined in WebSecurityConfigureAdapter
+
+(2) Spring boot starteres :-
+-> All the spring boot starters using above naming pattern.
+spring-boot-starter-*
+For example :-
+For Spring and JPA 
+spring-boot-starter-jpa dependency is required.
+
+-> Spring boot starter actutor dependency :- to monitor and manage application
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+-> Spring boot starter security dependency :- for spring security
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+
+-> Spring boot starter web dependency :- to write REST Endpoints
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+-> Spring boot starter thyme leaf dependency :- used to create web application
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+
+-> Spring boot starter test dependency :- for test cases.
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-test	</artifactId>
+</dependency>
+
+(3) Spring Boot Features :-
+Web Development
+SpringApplication
+Application events and listeners
+Admin features
+Externalized Configuration
+Properties Files
+YAML Support
+Type-safe Configuration
+Logging
+Security
+
+(4)
+Embeded servers are :- Tomcat,jetty,undertow	
+
+(5)@REST Controller
+Spring RestController annotation is a convenience annotation that is itself
+ annotated with @Controller and @ResponseBody .
+ This annotation is applied to a class to mark it as a request handler.
+ Spring RestController annotation is used to create RESTful web services using Spring MVC.
+ -> Its main use to inform to spring to render the result back to the caller.
+ 
+(6) @RequestMapping
+-> Basically it is used to provide routing information.
+-> It tells the spring that any http request should mapped to the corresponding method.
+
+(7) Spring boot maven plugin :
+-> It is used to package the project as an executable jar file.
+-> This is how we can add plugin dependency in pom.xml :-
+<build>  
+    <plugins>  
+        <plugin>  
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-maven-plugin</artifactId>  
+        </plugin>  
+    </plugins>  
+</build> 
+
+(8)Spring boot actuator :-
+-> It is mainly used to manage and monitor our application.
+-> Actuator is a tool which has HTTP endpoints.
+-> when application is pushed to production, we can choose to manage our application using http endpoints
+
+(9) Log Format :
+
+1) Date and time.
+2) Shows the log level eg. INFO,ERROR,WARN.
+3) Process ID
+4) ----- this is a seperator
+5) Thread Name which is enclosed withing the []
+6) LOGGER name which shows the source class name.
+7) The Log message.
+
+(10) How to access controller when it is in another package:-
+->In the main class where main method is defined give below annotation there.
+:- @ComponentScan(basePackages={"give your controller's package name"})
+
+(11) -> Extending the main class with SpringBootServletInitializer class shows that this class will be the entry class for the server.
+override the configure method. and return 
+@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		// TODO Auto-generated method stub
+		return builder.sources(ThymeleafApplication.class);
+	}
+	
+(12) How to generate war file for to run application in the external server.
+First in pom.xml file give <packaging>war</packaging>
+then right click on the project and fire maven test command.
+war file will generate in target folder.
+
+13) Reset Auto_Increment id code:-
+<c:set var="count" value="0" scope="page" />
+//in your loops
+<c:set var="count" value="${count + 1}" scope="page"/>
+and give count as an ID in the list.
+
+14) Devtools dependency
+-> It will automatically take all the effects, you dont need to restart the server every time.
+
+15)
+-> In Request Mapping annotation, path and value are both have the same functionality.
+
+16) How to start server in debug mode:
+-> in application.properties give below property
+ logging.level.org.springframework=debug
+ During the starting up the server logs will be generated.
+ 
+17)
+Main one is SpringBootAutoConfiguration 
+it connects each as per requirement.
+-> Dispatcher Servlet:-
+:Dispatcher Servlet is handling all the request of the class so it is the route of the class.
+[/]
+it is the front controller of the spring web mvc.
+@ResponseBody annotation is used to send the response back. Jackson is the one who converts all the response.
+-> DispatcherServletAutoConfiguration
+: it configure the dispatcherservlet on the classpath.
+-> ErrorMVCAutoConfiguration 
+: it configure the error page on the classpath.
+there are many attributes in this 
+for eg.
+basicErrorController,errorAttributes
+
+->HttpMessageConverterAutoConfiguration
+: It converts the beans to json format.
+
+18) Internationalization :-
+-> It also called i18n because there is 18 characters in that.
+-> What is it ?
+: Customizing our services for the different people arround the world.
+
+19) Various Response status and its description :-
+200 - SUCCESS
+404 - RESOURCE NOT FOUND
+400 - BAD REQUEST
+201 - CREATED
+401 - UNAUTHORISED
+415 - UNSUPPORTED TYPE - Representation not supported for the resource
+500 - SERVER ERROR
+
+20) Best Practise to use appropriate request methods.
+
+GET : Should not update anything. Used to Read a Resource. Should be idempotent (same result in multiple calls).
+ Possible Return Codes 200 (OK) + 404 (NOT FOUND) +400 (BAD REQUEST)
+POST : Should create new resource. Ideally return JSON with link to newly created resource.
+ Same return codes as get possible. In addition : Return code 201 (CREATED) is possible.
+PUT : Update a known resource. ex: update client details. Possible Return Codes : 200(OK)
+DELETE : Used to delete a resource.
+
+21) To Enable support for jsp's we need to add dependency of tomcat-embeded-jasper:
+which is as below.
+<dependency>
+    <groupId>org.apache.tomcat.embed</groupId>
+    <artifactId>tomcat-embed-jasper</artifactId>
+    <scope>provided</scope>
+</dependency>
+
+22) @Data
+This annotation is used for to provide the support for getter setter ,equal,hashcode in pojo class.
+We dont need to make getter setter after giving this annotation.
+
+23) How to use other embeded servers :-
+For it just add <exclusions></exclusions>
+for eg.
+		<dependency>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+		</dependency>
+Here i have added jetty server dependency and removed the tomcat dependency.
+
+24) What is Aspect oriented Programming ?
+-> First understand one thing :-
+Applications are generally developed with multiple layers.
+ A typical Java application has
+ -> web layers
+ -> Business layers
+ -> Data Layer
+ All the layers have different responsibilities
+ but everyone have some common aspects 
+ for eg .
+ - Logging
+ - security
+ -> they are called cross cutting concerns
+One option is to implementing it seperately but it is hard to maintain the code ,
+that's why AOP comes in the picture.
+Aspect Oriented Programming provides a solution to implement Cross Cutting Concerns.
+
+25) Spring boot's in memory database is H2.
+URL to access h2 database is http://localhost:8080/h2-console/
+after that give driver class jdbc:h2:mem:testdb
+leave username and password as it is and click on connect.
+
+26) CC and BCC difference.
+-> No cc user can see who are in the bcc list.
+-> Whenever cc user send the mail , bcc user won't get it.
+-> Bcc user can interact with only the sender.
+-> When sender send the mail it will go ccusers, and bcc users and at that time cc users can not see who are 
+	in the bcc user list, but bccuser can see the list of cc user.
+
+27) Meaning of <scope>Provided</scope> in embeded server
+-> We may want to have embedded server (e.g. tomcat) in development environment because of its usefulness in fast development lifecycle,
+ but we certainly not want those server jars to be included in finally generated maven artifact or war file.
+ To do so, set scope of embedded server dependency to ‘provided’.
+-> Scope ‘provided’ indicates you expect the JDK or a container to provide the dependency at runtime.
+ This scope is only available on the compilation and test classpath, and is not transitive.
+ 
+28) Property file of hibernate to create tables automatically in database in spring boot
+in application.properties 
+spring.jpa.hibernate.ddl-auto file must be update or create otherwise it will not create tables automatically and will throw
+any error.
+
+29) Spring Boot Internationalization :
+-> Internationalization is a process that makes your application adaptable to different languages and regions without engineering
+ changes on the source code. In other words, Internationalization is a readiness of Localization.
+
+30) Required annotations for BeanFactory :-
+@Component
+@Configuration
+@Repository
+@Required
+
+

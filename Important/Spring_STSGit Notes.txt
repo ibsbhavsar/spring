@@ -1,0 +1,112 @@
+	Git :-
+
+1. git init 
+a one time command to start who
+.git hidden subfolder will be created.
+
+2. Working area,Staging area,Repository
+
+Working area : where we write our code, update,delete and etc.
+Staging area : where files are ready for commit.
+Repository : where all the changes are saved as a commit.(different versions creates)
+
+3. git status 
+where we can check how many files are there to be committed.
+here we will see all uncommited files.
+
+4. git add filename
+using this command we can commit that file and that file will be add to staging area from working area.
+now if we check git status we can see that that fill will be in green color.
+
+5. git diff filename
+If have made changes in our committed file at that time using this command we can see how many difference are there in new file and committed file.
+changes are marked with + symbol.
+Whenever you make any changes dont forget to add it again in staging area.
+
+6.git commit -m ""
+This command will store permananent changes of our file inside the repository.
+
+7. git log
+using this command we can change how many commits are created.
+
+8. git clone "Copy from  Github" 
+This command is used to choose an exisiting repository.
+
+9.For the first time :- 
+git remote add origin https://github.com/ibsbhavsar/BhavinBhavsar.git
+
+10. git push origin master
+
+11. git config --global user.name
+
+12. git remote show origin 
+to check repository connected or not.
+.>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Here is a basic overview of how Git works:
+
+Create a "repository" (project) with a git hosting tool (like Bitbucket)
+Copy (or clone) the repository to your local machine
+Add a file to your local repo and "commit" (save) the changes
+"Push" your changes to your master branch
+Make a change to your file with a git hosting tool and commit
+"Pull" the changes to your local machine
+Create a "branch" (version), make a change, commit the change
+Open a "pull request" (propose changes to the master branch)
+"Merge" your branch to the master branch
+
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::
+
+1 :- git branch
+2 :- git branch branchName
+3 :- git checkout branchName
+4 :- add/update whatevr u want and commit
+5 :- git push origin branchName
+
+:::::::::::::::::::::::::::::::::::::::::::::::::
+
+From the basic :-
+
+1) Go at the location in local where you want to start git
+2) Open gitbash from that location
+3) give command :
+	git init
+4) add your file :
+	git add (filename)
+5) commit your file :
+	git commit -m "(give any message)"
+6) connect to the remote repositoy 
+	git remote add origin (give your repository url)
+7) push your branch to the remote
+	git push origin master 
+	-> here assume that master is the name of branch.
+	-> you can give any name of branch.
+8) how to make branch
+	git branch (branchname)
+	-> here above command will create the branch
+9) how to change the branch	
+	git checkout (branchname)
+	-> above command will change your branch.
+10) how to remove any file from the repository 
+	git rm --cached (your file name)
+	git commit -m "your message"
+	git push origin (branchname)
+	
+	so this is how the whole git works !!
+
+*******************************************-------------------------------------*************************************
+
+** Work together individually **
+
+1. Get an url from your senior hit that url and fork it.
+2. your own repo. will be created and copy that repo's url.
+3. now clone this url .
+4. add/update your file and commit it and.
+5. make sure always work in your own branch.
+6. Now push your branch to remote.
+7. Make sure to get all the data from the forked repository hit below command.
+git add upstream (copy forked repo's url)
+8. git pull upstream master
